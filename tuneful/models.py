@@ -15,18 +15,6 @@ class Song(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(128))
     file = relationship("File", uselist=False, backref="song")
-
-    # The song as dictionary method should produce a dictionary that looks like: 
-    """
-    {
-        "id": 1,
-        "name": "Shady_Grove"
-        "file": {
-            "id": 7,
-            "filename": "Shady_Grove.mp3"
-        }
-    }
-    """
     
     def as_dictionary(self):
         song = {
@@ -45,14 +33,11 @@ class File(Base):
     filename = Column(String(128))
     song_id = Column(Integer, ForeignKey('songs.id'))
     
-    # The file as dictionary method should produce a dictionary that looks like: 
-    """
-    {"id": 7, "name": "Shady_Grove.mp3"}
-    """
     
     def as_dictionary(self):
         file = {
             "id": self.id,
-            "filename": self.filename,
+            "filename": self.filename
         }
         return file
+        

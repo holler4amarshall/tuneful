@@ -84,8 +84,11 @@ class TestAPI(unittest.TestCase):
         session.add(file)
         session.commit()
         
+        print(file.id)
+        print(file.filename)
+        
         data = {
-            "name": "Plains",
+            "songname": "Plains",
             "file": {
                 "file": file.id
             }
