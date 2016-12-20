@@ -27,6 +27,19 @@ class TestAPI(unittest.TestCase):
 
         # Create folder for test uploads
         os.mkdir(upload_path())
+        
+        
+    def test_get_empty_list_of_songs(self):
+        """ Getting songs from an empty database """
+        response = self.client.get("/api/songs",
+        headers=[("Accept", "application/json")]
+        )
+    
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.mimetype, "application/json")
+    
+        data = json.loads(response.data.decode("ascii"))
+        self.assertEqual(data, [])
 
     def tearDown(self):
         """ Test teardown """
