@@ -20,9 +20,10 @@ class Song(Base):
     """
     {
         "id": 1,
+        "name": "Shady_Grove"
         "file": {
             "id": 7,
-            "name": "Shady_Grove.mp3"
+            "filename": "Shady_Grove.mp3"
         }
     }
     """
@@ -30,6 +31,7 @@ class Song(Base):
     def as_dictionary(self):
         song = {
             "id": self.id,
+            "songname": self.name,
             "file": self.file.as_dictionary()
         }
         return song
@@ -41,7 +43,7 @@ class File(Base):
 
     id = Column(Integer, primary_key=True)
     filename = Column(String(128))
-    song_id = Column(Integer, ForeignKey('songs.id'), nullable=False)
+    song_id = Column(Integer, ForeignKey('songs.id'))
     
     # The file as dictionary method should produce a dictionary that looks like: 
     """
