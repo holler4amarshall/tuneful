@@ -54,5 +54,3 @@ class File(Base):
             "filename": self.filename,
         }
         return file
-
-
