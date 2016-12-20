@@ -41,7 +41,7 @@ class File(Base):
 
     id = Column(Integer, primary_key=True)
     filename = Column(String(128))
-    song_id = Column(Integer, ForeignKey('song.id'), nullable=False)
+    song_id = Column(Integer, ForeignKey('songs.id'), nullable=False)
     
     # The file as dictionary method should produce a dictionary that looks like: 
     """
