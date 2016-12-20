@@ -16,16 +16,12 @@ from .utils import upload_path
 #@decorators.accept("application/json")
 def songs_get():
     """ Get a list of songs """
-    # Get the querystring arguments
-    #name_like = request.args.get("name_like")
 
-    # Get and filter the songs from the database
+    # Get the songs from the database
     songs = session.query(models.Song)
-    #if name_like:
-    #    songs = songs.filter(models.Song.name.contains(name_like))
+    # order the songs by ID
     songs = songs.order_by(models.Song.id)
-
-    # Convert the posts to JSON and return a response
+    # Convert the songs to JSON and return a response
     data = json.dumps([song.as_dictionary() for song in songs])
     return Response(data, 200, mimetype="application/json")
 
