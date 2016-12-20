@@ -74,7 +74,39 @@ class TestAPI(unittest.TestCase):
         song2 = data[1]
         self.assertEqual(song2["songname"], "Montana")
         self.assertEqual(song2["file"]["filename"], "Montana.mp3")
-        self.assertEqual(song1["file"]["id"], song2["id"])
+        self.assertEqual(song2["file"]["id"], song2["id"])
+        
+    def test_post_song(self):
+        "post a song for file in DB - success"
+        
+        #add a song file to the DB for the test
+        file = models.File(filename="Plains.mp3")
+        session.add(file)
+        session.commit()
+        
+        data = {
+            "name": "Plains",
+            "file": {
+                "file": file.id
+            }
+        }
+        
+        #query api
+        response = self.client.get("/api/songs")
+        print(response)
+
+        #assert api response contains expected response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.mimetype, "application/json")
+        data = json.loads(response.data.decode("ascii"))
+        self.assertEqual(len(data), 1)
+        
+        #assert response contains expected songs/file
+        song1 = data[0]
+        print(song1)
+        self.assertEqual(song1["songname"], "Plains")
+        self.assertEqual(song1["file"]["filename"], "Plains.mp3")
+        self.assertEqual(song1["file"]["id"], song1["id"])
 
     def tearDown(self):
         """ Test teardown """
